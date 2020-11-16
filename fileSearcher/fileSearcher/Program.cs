@@ -20,7 +20,7 @@ namespace fileSearcher
         {
             if (!File.Exists("../../../../searchConfig.txt") & !File.Exists("./searchConfig.txt"))
             {
-                StreamWriter writer = new StreamWriter("./config.txt", true, Encoding.UTF8);
+                StreamWriter writer = new StreamWriter("./searchConfig.txt", true, Encoding.UTF8);
                 writer.Close();
             }
         }
@@ -33,17 +33,25 @@ namespace fileSearcher
                 FileStream input = new FileStream("./searchConfig.txt", FileMode.Open, FileAccess.Read);
                 StreamReader reader = new StreamReader(input);
 
+
                 //Отрисовка элементов меню
                 printText("FileSearcher", "center");
                 printText(" ");
                 printText(" Стартовая директория поиска: ");
-                printText(" Имя файла: ");
+                Console.SetCursorPosition(31, Console.CursorTop - 1); Console.Write(reader.ReadLine());
+                printText("\n  Имя файла: ");
+                Console.SetCursorPosition(13, Console.CursorTop - 0); Console.Write(reader.ReadLine());
+                Console.SetCursorPosition(1, Console.CursorTop +1);
                 printText(" ");
                 printText(" 1 - начать поиск");
                 printText(" 2 - изменить параметры поиска");
                 printText(" 3 - выйти из программы");
                 Console.SetCursorPosition(2, Console.CursorTop + 1);
+                reader.BaseStream.Position = 0;
+
                 
+
+
                 int enter = 0;
 
                 try
