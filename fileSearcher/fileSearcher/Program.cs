@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Text;
+using System.IO;
+
 
 namespace fileSearcher
 {
@@ -6,9 +9,20 @@ namespace fileSearcher
     {
         static void Main(string[] args)
         {
+            checkConfigFileExists();
             startMenu();
+
             Console.ReadKey();
 
+        }
+
+        static void checkConfigFileExists()
+        {
+            if (!File.Exists("../../../../config.txt") & !File.Exists("./config.txt"))
+            {
+                StreamWriter writer = new StreamWriter("./config.txt", true, Encoding.UTF8);
+                writer.Close();
+            }
         }
 
         static void startMenu()
