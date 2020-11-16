@@ -6,11 +6,67 @@ namespace fileSearcher
     {
         static void Main(string[] args)
         {
-            
+            startMenu();
             Console.ReadKey();
 
         }
 
+        static void startMenu()
+        {
+            while (true)
+            {
+                //Отрисовка элементов меню
+                printText("FileSearcher", "center");
+                printText(" ");
+                printText(" Стартовая директория поиска: ");
+                printText(" Имя файла: ");
+                printText(" ");
+                printText(" 1 - начать поиск");
+                printText(" 2 - изменить параметры поиска");
+                printText(" 3 - выйти из программы");
+                Console.SetCursorPosition(2, Console.CursorTop + 1);
+                
+                int enter = 0;
+
+                try
+                {
+                    enter = Convert.ToInt32(Console.ReadLine());
+
+                    switch (enter)
+                    {
+                        case 1:
+                            Console.Clear();
+                            search();
+                            break;
+                        case 2:
+                            Console.Clear();
+                            correctSearchParam();
+                            break;
+                        case 3:
+                            Console.Clear();
+                            System.Environment.Exit(0);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                catch (System.FormatException)
+                {
+                    Console.Clear();
+                }
+            }
+            
+        }
+
+        static void search()
+        {
+
+        }
+
+        static void correctSearchParam()
+        {
+
+        }
 
         static void printText(string str, string side = "left")
         {
