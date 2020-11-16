@@ -34,14 +34,21 @@ namespace fileSearcher
                 StreamReader reader = new StreamReader(input);
 
 
+
                 //Отрисовка элементов меню
                 printText("FileSearcher", "center");
                 printText(" ");
+
                 printText(" Стартовая директория поиска: ");
-                Console.SetCursorPosition(31, Console.CursorTop - 1); Console.Write(reader.ReadLine());
+                //Отображение информации из файла конфигурации о стартовой директории поиска
+                Console.SetCursorPosition(31, Console.CursorTop - 1); 
+                Console.Write(reader.ReadLine());
+
                 printText("\n  Имя файла: ");
+                //Отображение информации из файла конфигурации об имени файла
                 Console.SetCursorPosition(13, Console.CursorTop - 0); Console.Write(reader.ReadLine());
                 Console.SetCursorPosition(1, Console.CursorTop +1);
+
                 printText(" ");
                 printText(" 1 - начать поиск");
                 printText(" 2 - изменить параметры поиска");
@@ -51,8 +58,8 @@ namespace fileSearcher
 
                 
 
-
-                int enter = 0;
+                //Вызов функций, соответствующих выбору пользователя
+                int enter;
 
                 try
                 {
