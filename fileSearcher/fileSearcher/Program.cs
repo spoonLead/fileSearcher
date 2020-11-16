@@ -16,6 +16,7 @@ namespace fileSearcher
 
         }
 
+
         static void checkConfigFileExists()
         {
             if (!File.Exists("../../../../searchConfig.txt") & !File.Exists("./searchConfig.txt"))
@@ -24,6 +25,8 @@ namespace fileSearcher
                 writer.Close();
             }
         }
+
+
 
         static void startMenu()
         {
@@ -93,29 +96,38 @@ namespace fileSearcher
             
         }
 
+        //Вывод на экран надписи о неверном вводе данных и таймер обатного отсчета 5 секунд для
+        static void printIncorrectInputMessage()
+        {
+            Console.Clear();
+            printText("Неправильно введено значение!", "center");
+            printText("Вы будете направлены назад", "center");
+            timerForSec(5);
+            Console.Clear();
+        }
+
+        static void timerForSec(int sec)
+        {
+            for (int i = sec; i >= 1; i--)
+            {
+                printText(Convert.ToString(i), "center");
+                Console.SetCursorPosition(0, Console.CursorTop - 1);
+                System.Threading.Thread.Sleep(1000);
+            }
+        }
+
         static void search()
         {
 
         }
+
 
         static void correctSearchParam()
         {
 
         }
 
-        static void printIncorrectInputMessage()
-        {
-            Console.Clear();
-            printText("Неправильно введено значение!", "center");
-            printText("Вы будете направлены назад", "center");
-            for (int i = 5; i >= 1; i--)
-            {
-                printText(Convert.ToString(i), "center");
-                Console.SetCursorPosition(0, Console.CursorTop - 1);
-                System.Threading.Thread.Sleep(1000);
-            }
-            Console.Clear();
-        }
+       
 
         static void printText(string str, string side = "left")
         {
