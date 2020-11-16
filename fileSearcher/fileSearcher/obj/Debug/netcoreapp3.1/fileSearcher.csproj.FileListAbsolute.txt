@@ -1,0 +1,13 @@
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\bin\Debug\netcoreapp3.1\fileSearcher.exe
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\bin\Debug\netcoreapp3.1\fileSearcher.deps.json
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\bin\Debug\netcoreapp3.1\fileSearcher.runtimeconfig.json
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\bin\Debug\netcoreapp3.1\fileSearcher.runtimeconfig.dev.json
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\bin\Debug\netcoreapp3.1\fileSearcher.dll
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\bin\Debug\netcoreapp3.1\fileSearcher.pdb
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\obj\Debug\netcoreapp3.1\fileSearcher.csprojAssemblyReference.cache
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\obj\Debug\netcoreapp3.1\fileSearcher.AssemblyInfoInputs.cache
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\obj\Debug\netcoreapp3.1\fileSearcher.AssemblyInfo.cs
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\obj\Debug\netcoreapp3.1\fileSearcher.csproj.CoreCompileInputs.cache
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\obj\Debug\netcoreapp3.1\fileSearcher.dll
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\obj\Debug\netcoreapp3.1\fileSearcher.pdb
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\fileSearcher\obj\Debug\netcoreapp3.1\fileSearcher.genruntimeconfig.cache
