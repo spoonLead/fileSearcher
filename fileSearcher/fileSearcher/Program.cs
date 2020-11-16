@@ -47,11 +47,13 @@ namespace fileSearcher
                             System.Environment.Exit(0);
                             break;
                         default:
+                            printIncorrectInputMessage();
                             break;
                     }
                 }
                 catch (System.FormatException)
                 {
+                    printIncorrectInputMessage();
                     Console.Clear();
                 }
             }
@@ -66,6 +68,20 @@ namespace fileSearcher
         static void correctSearchParam()
         {
 
+        }
+
+        static void printIncorrectInputMessage()
+        {
+            Console.Clear();
+            printText("Неправильно введено значение!", "center");
+            printText("Вы будете направлены назад", "center");
+            for (int i = 5; i >= 1; i--)
+            {
+                printText(Convert.ToString(i), "center");
+                Console.SetCursorPosition(0, Console.CursorTop - 0);
+                System.Threading.Thread.Sleep(1000);
+            }
+            Console.Clear();
         }
 
         static void printText(string str, string side = "left")
