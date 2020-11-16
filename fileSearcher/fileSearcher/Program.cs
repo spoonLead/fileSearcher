@@ -111,7 +111,7 @@ namespace fileSearcher
             for (int i = 5; i >= 1; i--)
             {
                 printText(Convert.ToString(i), "center");
-                Console.SetCursorPosition(0, Console.CursorTop - 0);
+                Console.SetCursorPosition(0, Console.CursorTop - 1);
                 System.Threading.Thread.Sleep(1000);
             }
             Console.Clear();
