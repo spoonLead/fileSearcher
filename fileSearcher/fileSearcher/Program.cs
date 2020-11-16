@@ -96,7 +96,7 @@ namespace fileSearcher
             
         }
 
-        //Вывод на экран надписи о неверном вводе данных и таймер обатного отсчета 5 секунд для
+        //Вывод на экран надписи о неверном вводе данных и таймер обатного отсчета на 5 секунд
         static void printIncorrectInputMessage()
         {
             Console.Clear();
@@ -106,6 +106,7 @@ namespace fileSearcher
             Console.Clear();
         }
 
+        //Таймер с обратным отсчетом, замораживающий процесс на заданное кол-во секунд
         static void timerForSec(int sec)
         {
             for (int i = sec; i >= 1; i--)
@@ -115,6 +116,7 @@ namespace fileSearcher
                 System.Threading.Thread.Sleep(1000);
             }
         }
+
 
         static void search()
         {
