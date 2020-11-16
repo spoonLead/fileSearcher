@@ -18,7 +18,7 @@ namespace fileSearcher
 
         static void checkConfigFileExists()
         {
-            if (!File.Exists("../../../../config.txt") & !File.Exists("./config.txt"))
+            if (!File.Exists("../../../../searchConfig.txt") & !File.Exists("./searchConfig.txt"))
             {
                 StreamWriter writer = new StreamWriter("./config.txt", true, Encoding.UTF8);
                 writer.Close();
@@ -29,6 +29,10 @@ namespace fileSearcher
         {
             while (true)
             {
+                //Открытие файла конфигурации поиска
+                FileStream input = new FileStream("./searchConfig.txt", FileMode.Open, FileAccess.Read);
+                StreamReader reader = new StreamReader(input);
+
                 //Отрисовка элементов меню
                 printText("FileSearcher", "center");
                 printText(" ");
