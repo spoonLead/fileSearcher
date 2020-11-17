@@ -44,10 +44,9 @@ namespace fileSearcher
                 
 
                 //Вызов функций, соответствующих выбору пользователя
-                int enter;
-
                 try
                 {
+                    int enter;
                     enter = Convert.ToInt32(Console.ReadLine());
 
                     switch (enter)
@@ -127,7 +126,21 @@ namespace fileSearcher
 
         static void correctSearchParam()
         {
+            while (true)
+            {
+                printText("FileSearcher", "center");
+                printText(" ");
+                printSearchParam();
+                printText(" ");
+                printText(" Новая стартовая директория поиска: ");
+                string newStartDirectory = Console.ReadLine();
+                printText(" Новое имя искомого файла: ");
+                string newSearchingFileName = Console.ReadLine();
 
+                printText(" ");
+                printText(" 1 - Сохранить изменения     2 - Выйти без изменений");
+            }
+            
         }
 
        
