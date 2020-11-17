@@ -48,8 +48,7 @@ namespace fileSearcher
                 //Вызов функций, соответствующих выбору пользователя
                 try
                 {
-                    int enter;
-                    enter = Convert.ToInt32(Console.ReadLine());
+                    int enter = Convert.ToInt32(Console.ReadLine());
 
                     switch (enter)
                     {
@@ -128,24 +127,57 @@ namespace fileSearcher
 
         static void correctSearchParam()
         {
-            while (true)
+            bool exit = false;
+            while (exit == false)
             {
                 printText("FileSearcher", "center");
                 printText(" ");
                 printSearchParam();
                 printText(" ");
-                printText(" Новая стартовая директория поиска: ");
+                printText("Новая стартовая директория поиска: ");
+                Console.SetCursorPosition(2, Console.CursorTop);
                 string newStartDirectory = Console.ReadLine();
                 printText(" Новое имя искомого файла: ");
+                Console.SetCursorPosition(2, Console.CursorTop);
                 string newSearchingFileName = Console.ReadLine();
 
                 printText(" ");
                 printText(" 1 - Сохранить изменения     2 - Выйти без изменений");
+                Console.SetCursorPosition(2, Console.CursorTop);
+
+
+                try
+                {
+                    int enter = Convert.ToInt32(Console.ReadLine());
+
+                    switch (enter)
+                    {
+                        case 1:
+                            Console.Clear();
+                            saveToConfigNewParam(newStartDirectory, newSearchingFileName);
+                            break;
+                        case 2:
+                            Console.Clear();
+                            exit = true;
+                            break;
+                        default:
+                            printIncorrectInputMessage();
+                            break;
+                    }
+
+                }
+                catch (System.FormatException)
+                {
+                    printIncorrectInputMessage();
+                }
             }
             
         }
 
-       
+       static void saveToConfigNewParam(string newStartDir, string newSearchFileName)
+       {
+
+       }
 
         static void printText(string str, string side = "left")
         {
