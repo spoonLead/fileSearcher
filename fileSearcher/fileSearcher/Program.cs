@@ -91,7 +91,7 @@ namespace fileSearcher
 
             printText("\n  Имя искомого файла: ");
             //Отображение информации из файла конфигурации об имени файла
-            Console.SetCursorPosition(13, Console.CursorTop - 0); Console.Write(reader.ReadLine());
+            Console.SetCursorPosition(22, Console.CursorTop - 0); Console.Write(reader.ReadLine());
             Console.SetCursorPosition(1, Console.CursorTop + 1);
 
             reader.Close();
