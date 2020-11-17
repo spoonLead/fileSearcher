@@ -32,33 +32,15 @@ namespace fileSearcher
         {
             while (true)
             {
-                //Открытие файла конфигурации поиска
-                FileStream input = new FileStream("./searchConfig.txt", FileMode.Open, FileAccess.Read);
-                StreamReader reader = new StreamReader(input);
-
-
-
                 //Отрисовка элементов меню
                 printText("FileSearcher", "center");
                 printText(" ");
-
-                printText(" Стартовая директория поиска: ");
-                //Отображение информации из файла конфигурации о стартовой директории поиска
-                Console.SetCursorPosition(31, Console.CursorTop - 1); 
-                Console.Write(reader.ReadLine());
-
-                printText("\n  Имя файла: ");
-                //Отображение информации из файла конфигурации об имени файла
-                Console.SetCursorPosition(13, Console.CursorTop - 0); Console.Write(reader.ReadLine());
-                Console.SetCursorPosition(1, Console.CursorTop +1);
-
+                printSearchParam();
                 printText(" ");
                 printText(" 1 - начать поиск");
                 printText(" 2 - изменить параметры поиска");
                 printText(" 3 - выйти из программы");
                 Console.SetCursorPosition(2, Console.CursorTop + 1);
-                reader.BaseStream.Position = 0;
-
                 
 
                 //Вызов функций, соответствующих выбору пользователя
@@ -94,6 +76,25 @@ namespace fileSearcher
                 }
             }
             
+        }
+        static void printSearchParam()
+        {
+            //Открытие файла конфигурации поиска
+            FileStream input = new FileStream("./searchConfig.txt", FileMode.Open, FileAccess.Read);
+            StreamReader reader = new StreamReader(input);
+
+
+            printText(" Стартовая директория поиска: ");
+            //Отображение информации из файла конфигурации о стартовой директории поиска
+            Console.SetCursorPosition(31, Console.CursorTop - 1);
+            Console.Write(reader.ReadLine());
+
+            printText("\n  Имя искомого файла: ");
+            //Отображение информации из файла конфигурации об имени файла
+            Console.SetCursorPosition(13, Console.CursorTop - 0); Console.Write(reader.ReadLine());
+            Console.SetCursorPosition(1, Console.CursorTop + 1);
+
+            reader.Close();
         }
 
         //Вывод на экран надписи о неверном вводе данных и таймер обатного отсчета на 5 секунд
