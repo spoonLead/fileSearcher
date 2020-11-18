@@ -176,8 +176,16 @@ namespace fileSearcher
 
        static void saveToConfigNewParam(string newStartDir, string newSearchFileName)
        {
+            string tempfile = Path.GetTempFileName();
+            StreamWriter writer = new StreamWriter(tempfile, false);
 
-       }
+            writer.WriteLine(newStartDir);
+            writer.WriteLine(newSearchFileName);
+
+            writer.Close();
+            File.Delete(searchConfigPath);
+            File.Move(tempfile, searchConfigPath);
+        }
 
         static void printText(string str, string side = "left")
         {
