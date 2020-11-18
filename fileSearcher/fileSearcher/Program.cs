@@ -155,6 +155,12 @@ namespace fileSearcher
                         case 1:
                             Console.Clear();
                             saveToConfigNewParam(newStartDirectory, newSearchingFileName);
+                            Console.Clear();
+                            printText("Изменения сохранены!", "center");
+                            printText("Вы будете возвращены в главное меню через:", "center");
+                            timerForSec(5);
+                            Console.Clear();
+                            exit = true;
                             break;
                         case 2:
                             Console.Clear();
