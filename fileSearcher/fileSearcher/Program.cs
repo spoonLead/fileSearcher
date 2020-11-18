@@ -136,6 +136,15 @@ namespace fileSearcher
             //Закрытие файла конфигурации
             reader.Close();
 
+            //Отрисовка элементов меню
+            printText("FileSearcher", "center");
+            printText(" ");
+            printSearchParam();
+            printText(" ");
+            printText("Введите номер файла, чтобы его открыть или");
+            printText("s - остановить/продолжить поиск: ");
+            printText(" ");
+            printText(" ");
 
             List<string> requiredFiles = getRecursiveFiles(startDir);
             foreach (string reqFilePath in requiredFiles)
