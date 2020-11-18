@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Text;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Collections.Generic;
+using System.Linq;
 
 
 namespace fileSearcher
@@ -121,8 +124,58 @@ namespace fileSearcher
 
         static void search()
         {
+            //Открытие файла конфигурации поиска
+            FileStream input = new FileStream(searchConfigPath, FileMode.Open, FileAccess.Read);
+            StreamReader reader = new StreamReader(input);
+            
+            //Получение из файла параметров поиска
+            string startDir = reader.ReadLine();
+            string searchFileName = reader.ReadLine();
+            Regex searchFileNamePattern = new Regex(@"(\w*)" + searchFileName + @"(\w*)");
 
+            //Закрытие файла конфигурации
+            reader.Close();
+
+
+            List<string> requiredFiles = getRecursiveFiles(startDir);
+            foreach (string reqFilePath in requiredFiles)
+            {
+                if (searchFileNamePattern.IsMatch(reqFilePath))
+                {
+                    Console.WriteLine(reqFilePath);
+                }
+            }
+
+            
+
+            Console.ReadKey();
         }
+
+        public static List<string> getRecursiveFiles(string startDir)
+        {
+            List<string> recursiveFiles = new List<string>();
+
+            try
+            {
+                string[] dirs = Directory.GetDirectories(startDir);
+                foreach (string dir in dirs)
+                {
+                    recursiveFiles.AddRange(getRecursiveFiles(dir));
+                }
+
+                string[] files = Directory.GetFiles(startDir);
+                foreach (string filePath in files)
+                {
+                    recursiveFiles.Add(filePath);
+                }
+
+            }
+            catch (System.Exception e) { }
+
+
+            return recursiveFiles;
+        }
+
 
 
         static void correctSearchParam()
