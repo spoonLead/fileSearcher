@@ -14,6 +14,7 @@ namespace fileSearcher
         static AutoResetEvent are = new AutoResetEvent(false);
         static int currentFileNumber = 0;
         static int fileCount = 0;
+        static string enter;
 
         static void Main(string[] args)
         {
@@ -45,10 +46,12 @@ namespace fileSearcher
                 printText(" ");
                 printSearchParam();
                 printText(" ");
-                printText(" 1 - начать поиск");
-                printText(" 2 - изменить параметры поиска");
-                printText(" 3 - выйти из программы");
-                Console.SetCursorPosition(2, Console.CursorTop + 1);
+                printText("1 - начать поиск");
+                printText("2 - изменить параметры поиска");
+                printText("3 - выйти из программы");
+                printText(" ");
+                printText("Выбор пункта меню: ");
+                Console.SetCursorPosition(21, Console.CursorTop -1);
                 
 
                 //Вызов функций, соответствующих выбору пользователя
@@ -124,7 +127,7 @@ namespace fileSearcher
             }
         }
 
-        public static string enter;
+        
 
         static void search()
         {
