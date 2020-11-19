@@ -148,10 +148,11 @@ namespace fileSearcher
             printText(" ");
             printText(" ");
 
+            Console.SetCursorPosition(0, 10);
             new Thread(() =>
             {
-                List<string> requiredFiles = getRecursiveFiles(startDir);
-                getFilesMatchPatternFromList(searchFileNamePattern, requiredFiles);
+                List<string> requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
+                Console.WriteLine("Поиск завершен");
             }).Start();
 
 
@@ -165,56 +166,42 @@ namespace fileSearcher
 
         }
         
-        
-
-        public static void getFilesMatchPatternFromList(Regex pattern, List<string> ls)
-        {
-            int r = 0;
-            while (r < ls.Count)
-            {
-                if (enter == "s")
-                    are.WaitOne();
-                if (pattern.IsMatch(ls[r]))
-                {
-                    Console.WriteLine(ls[r]);
-                }
-                r++;
-            }
-            
-        }
-
-
-        public static List<string> getRecursiveFiles(string startDir)
+        public static List<string> getRecursiveFilesMatchPattern(string dir, Regex pattern)
         {
             List<string> recursiveFiles = new List<string>();
 
             try
             {
-                string[] dirs = Directory.GetDirectories(startDir);
+                string[] dirs = Directory.GetDirectories(dir);
                 int d = 0;
                 while(d < dirs.Length)
                 {
                     if (enter == "s")
                         are.WaitOne();
-                    recursiveFiles.AddRange(getRecursiveFiles(dirs[d]));
+
+                    getRecursiveFilesMatchPattern(dirs[d], pattern);
                     d++;
                 }
                 
 
-                string[] files = Directory.GetFiles(startDir);
+                string[] files = Directory.GetFiles(dir);
                 int f = 0;
                 while (f < files.Length)
                 {
                     if (enter == "s")
                         are.WaitOne();
+
                     recursiveFiles.Add(files[f]);
+                    if (pattern.IsMatch(files[f]))
+                    {
+                        Console.WriteLine(files[f]);
+                    }
                     f++;
                 }
                 
 
             }
             catch (System.Exception e) { }
-
 
             return recursiveFiles;
         }
