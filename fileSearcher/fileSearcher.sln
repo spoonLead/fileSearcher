@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "fileSearcher", "fileSearche
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shop accounting", "..\..\shop accounting\shop accounting\shop accounting.csproj", "{87FD071D-58B8-46AC-A56D-FAFD585EA683}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ThreadingText", "ThreadingText\ThreadingText.csproj", "{F859D412-CDBB-4881-921E-C8256CAC99B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{87FD071D-58B8-46AC-A56D-FAFD585EA683}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87FD071D-58B8-46AC-A56D-FAFD585EA683}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87FD071D-58B8-46AC-A56D-FAFD585EA683}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F859D412-CDBB-4881-921E-C8256CAC99B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F859D412-CDBB-4881-921E-C8256CAC99B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F859D412-CDBB-4881-921E-C8256CAC99B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F859D412-CDBB-4881-921E-C8256CAC99B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

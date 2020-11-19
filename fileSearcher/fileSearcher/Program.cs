@@ -147,18 +147,22 @@ namespace fileSearcher
             printText(" ");
 
             List<string> requiredFiles = getRecursiveFiles(startDir);
-            foreach (string reqFilePath in requiredFiles)
+            getFilesMatchPatternFromList(searchFileNamePattern, requiredFiles);
+
+
+            Console.ReadKey();
+        }
+        public static void getFilesMatchPatternFromList(Regex pattern, List<string> ls)
+        {
+            foreach (string reqFilePath in ls)
             {
-                if (searchFileNamePattern.IsMatch(reqFilePath))
+                if (pattern.IsMatch(reqFilePath))
                 {
                     Console.WriteLine(reqFilePath);
                 }
             }
-
-            
-
-            Console.ReadKey();
         }
+
 
         public static List<string> getRecursiveFiles(string startDir)
         {
@@ -242,7 +246,7 @@ namespace fileSearcher
             
         }
 
-       static void saveToConfigNewParam(string newStartDir, string newSearchFileName)
+        static void saveToConfigNewParam(string newStartDir, string newSearchFileName)
        {
             string tempfile = Path.GetTempFileName();
             StreamWriter writer = new StreamWriter(tempfile, false);

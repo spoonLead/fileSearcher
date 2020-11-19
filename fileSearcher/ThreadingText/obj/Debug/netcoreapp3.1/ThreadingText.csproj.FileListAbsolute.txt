@@ -1,0 +1,13 @@
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\bin\Debug\netcoreapp3.1\ThreadingText.exe
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\bin\Debug\netcoreapp3.1\ThreadingText.deps.json
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\bin\Debug\netcoreapp3.1\ThreadingText.runtimeconfig.json
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\bin\Debug\netcoreapp3.1\ThreadingText.runtimeconfig.dev.json
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\bin\Debug\netcoreapp3.1\ThreadingText.dll
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\bin\Debug\netcoreapp3.1\ThreadingText.pdb
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\obj\Debug\netcoreapp3.1\ThreadingText.csprojAssemblyReference.cache
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\obj\Debug\netcoreapp3.1\ThreadingText.AssemblyInfoInputs.cache
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\obj\Debug\netcoreapp3.1\ThreadingText.AssemblyInfo.cs
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\obj\Debug\netcoreapp3.1\ThreadingText.csproj.CoreCompileInputs.cache
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\obj\Debug\netcoreapp3.1\ThreadingText.dll
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\obj\Debug\netcoreapp3.1\ThreadingText.pdb
+C:\Users\PUSH_ka\Desktop\fileSearcher\fileSearcher\ThreadingText\obj\Debug\netcoreapp3.1\ThreadingText.genruntimeconfig.cache
