@@ -12,6 +12,8 @@ namespace fileSearcher
     {
         public const string searchConfigPath = "./searchConfig.txt";
         static AutoResetEvent are = new AutoResetEvent(false);
+        static int currentFileNumber = 0;
+        static int fileCount = 0;
 
         static void Main(string[] args)
         {
@@ -148,11 +150,12 @@ namespace fileSearcher
             printText(" ");
             printText(" ");
 
-            Console.SetCursorPosition(0, 10);
+            Console.SetCursorPosition(42, 6);
             new Thread(() =>
             {
                 List<string> requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
-                Console.WriteLine("Поиск завершен");
+                Console.WriteLine(" ");
+                Console.WriteLine(" Поиск завершен");
             }).Start();
 
 
@@ -169,8 +172,7 @@ namespace fileSearcher
         public static List<string> getRecursiveFilesMatchPattern(string dir, Regex pattern)
         {
             List<string> recursiveFilesMatchPattern = new List<string>();
-            int currentFileNumber = 0;
-            int fileCount = 0;
+            
 
             try
             {
@@ -196,8 +198,8 @@ namespace fileSearcher
                     if (pattern.IsMatch(files[f]))
                     {
                         recursiveFilesMatchPattern.Add(files[f]);
-                        //Console.SetCursorPosition(1, 14 + currentFileNumber);
-                        Console.WriteLine(files[f]);
+                        Console.SetCursorPosition(1, 14 + currentFileNumber);
+                        Console.WriteLine(currentFileNumber + ") - " + files[f]);
                         currentFileNumber++;
                     }
 
