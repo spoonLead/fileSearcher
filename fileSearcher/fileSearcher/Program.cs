@@ -157,7 +157,8 @@ namespace fileSearcher
             Console.Write("Общее кол-во файлов: ");
             Console.SetCursorPosition(2, 10);
             Console.Write("Кол-во совпавших файлов: ");
-            
+            Console.SetCursorPosition(2, 11);
+            Console.Write("Поиск в директории: ");
 
 
             Console.SetCursorPosition(42, 6);
@@ -228,8 +229,20 @@ namespace fileSearcher
                     f++;
                 }
 
-                
-                
+                Console.SetCursorPosition(22, 11);
+                for (int i = 22; i < Console.BufferWidth; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.SetCursorPosition(0, 12);
+                for (int i = 0; i < Console.BufferWidth; i++)
+                {
+                    Console.Write(" ");
+                }
+                Console.SetCursorPosition(22, 11);
+                Console.Write(dir);
+                Thread.Sleep(30);
+                Console.SetCursorPosition(62, 6);
 
             }
             catch (System.Exception e) { }
