@@ -14,7 +14,7 @@ namespace fileSearcher
         static AutoResetEvent are = new AutoResetEvent(false);
         static int currentFileNumber = 0;
         static int fileCount = 0;
-        static string enter;
+        static bool searching = true;
 
         static void Main(string[] args)
         {
@@ -149,7 +149,7 @@ namespace fileSearcher
             printSearchParam();
             printText(" ");
             printText("Введите номер файла, чтобы его открыть или");
-            printText("s - остановить   w - продолжить поиск: ");
+            printText("s - остановить   w - продолжить поиск   0 - выйти в меню: ");
             printText(" ");
             printText(" ");
 
@@ -157,6 +157,8 @@ namespace fileSearcher
             Console.Write("Общее кол-во файлов: ");
             Console.SetCursorPosition(2, 10);
             Console.Write("Кол-во совпавших файлов: ");
+            
+
 
             Console.SetCursorPosition(42, 6);
             new Thread(() =>
@@ -164,14 +166,20 @@ namespace fileSearcher
                 List<string> requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
                 Console.WriteLine(" ");
                 Console.WriteLine("  Поиск завершен");
+                Console.SetCursorPosition(62, 6);
             }).Start();
 
 
             
             while (true)
             {
-                enter = Console.ReadLine();
-                if (enter == "w")
+                Console.SetCursorPosition(62, 6);
+                char enter = Console.ReadKey().KeyChar;
+                if (enter == 'w')
+                    searching = true;
+                if (enter == 's')
+                    searching = false;
+                if (searching == true)
                     are.Set();
             }
 
@@ -187,7 +195,7 @@ namespace fileSearcher
                 int d = 0;
                 while(d < dirs.Length)
                 {
-                    if (enter == "s")
+                    if (searching == false)
                         are.WaitOne();
 
                     getRecursiveFilesMatchPattern(dirs[d], pattern);
@@ -199,24 +207,28 @@ namespace fileSearcher
                 int f = 0;
                 while (f < files.Length)
                 {
-                    if (enter == "s")
+                    if (searching == false)
                         are.WaitOne();
 
                     if (pattern.IsMatch(files[f]))
                     {
                         recursiveFilesMatchPattern.Add(files[f]);
+                        currentFileNumber++;
                         Console.SetCursorPosition(2, 14 + currentFileNumber);
                         Console.Write(currentFileNumber + ") - " + files[f]);
-                        currentFileNumber++;
                     }
 
                     fileCount++;
-                    /*Console.SetCursorPosition(22, 9);
+                    Console.SetCursorPosition(22, 9);
                     Console.Write(fileCount);
+                    Console.SetCursorPosition(62, 6);
                     Console.SetCursorPosition(26, 10);
-                    Console.Write(currentFileNumber);*/
+                    Console.Write(currentFileNumber);
+                    Console.SetCursorPosition(62, 6);
                     f++;
                 }
+
+                
                 
 
             }
