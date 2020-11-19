@@ -31,8 +31,8 @@ namespace ThreadingText
             {
                 if (enter == 1)
                     are.WaitOne();
-                if (enter != 1)
-                {
+                //if (enter != 1)
+                //{
                     int cl = Console.CursorLeft;
                     int ct = Console.CursorTop;
 
@@ -42,7 +42,7 @@ namespace ThreadingText
 
                     System.Threading.Thread.Sleep(1000);
                     i++;
-                }
+                //}
             }
 
             /*for(int i = 0; i < 100; i++)

@@ -4,13 +4,14 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading;
 
 namespace fileSearcher
 {
     class Program
     {
         public const string searchConfigPath = "./searchConfig.txt";
+        static AutoResetEvent are = new AutoResetEvent(false);
 
         static void Main(string[] args)
         {
@@ -121,6 +122,7 @@ namespace fileSearcher
             }
         }
 
+        public static string enter;
 
         static void search()
         {
@@ -142,25 +144,43 @@ namespace fileSearcher
             printSearchParam();
             printText(" ");
             printText("Введите номер файла, чтобы его открыть или");
-            printText("s - остановить/продолжить поиск: ");
+            printText("s - остановить   w - продолжить поиск: ");
             printText(" ");
             printText(" ");
 
-            List<string> requiredFiles = getRecursiveFiles(startDir);
-            getFilesMatchPatternFromList(searchFileNamePattern, requiredFiles);
+            new Thread(() =>
+            {
+                List<string> requiredFiles = getRecursiveFiles(startDir);
+                getFilesMatchPatternFromList(searchFileNamePattern, requiredFiles);
+            }).Start();
 
 
-            Console.ReadKey();
+            
+            while (true)
+            {
+                enter = Console.ReadLine();
+                if (enter == "w")
+                    are.Set();
+            }
+
         }
+        
+        
+
         public static void getFilesMatchPatternFromList(Regex pattern, List<string> ls)
         {
-            foreach (string reqFilePath in ls)
+            int r = 0;
+            while (r < ls.Count)
             {
-                if (pattern.IsMatch(reqFilePath))
+                if (enter == "s")
+                    are.WaitOne();
+                if (pattern.IsMatch(ls[r]))
                 {
-                    Console.WriteLine(reqFilePath);
+                    Console.WriteLine(ls[r]);
                 }
+                r++;
             }
+            
         }
 
 
@@ -171,16 +191,26 @@ namespace fileSearcher
             try
             {
                 string[] dirs = Directory.GetDirectories(startDir);
-                foreach (string dir in dirs)
+                int d = 0;
+                while(d < dirs.Length)
                 {
-                    recursiveFiles.AddRange(getRecursiveFiles(dir));
+                    if (enter == "s")
+                        are.WaitOne();
+                    recursiveFiles.AddRange(getRecursiveFiles(dirs[d]));
+                    d++;
                 }
+                
 
                 string[] files = Directory.GetFiles(startDir);
-                foreach (string filePath in files)
+                int f = 0;
+                while (f < files.Length)
                 {
-                    recursiveFiles.Add(filePath);
+                    if (enter == "s")
+                        are.WaitOne();
+                    recursiveFiles.Add(files[f]);
+                    f++;
                 }
+                
 
             }
             catch (System.Exception e) { }
