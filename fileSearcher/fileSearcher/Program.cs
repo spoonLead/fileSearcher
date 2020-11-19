@@ -153,12 +153,17 @@ namespace fileSearcher
             printText(" ");
             printText(" ");
 
+            Console.SetCursorPosition(2, 9);
+            Console.Write("Общее кол-во файлов: ");
+            Console.SetCursorPosition(2, 10);
+            Console.Write("Кол-во совпавших файлов: ");
+
             Console.SetCursorPosition(42, 6);
             new Thread(() =>
             {
                 List<string> requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
                 Console.WriteLine(" ");
-                Console.WriteLine(" Поиск завершен");
+                Console.WriteLine("  Поиск завершен");
             }).Start();
 
 
@@ -176,7 +181,6 @@ namespace fileSearcher
         {
             List<string> recursiveFilesMatchPattern = new List<string>();
             
-
             try
             {
                 string[] dirs = Directory.GetDirectories(dir);
@@ -201,12 +205,16 @@ namespace fileSearcher
                     if (pattern.IsMatch(files[f]))
                     {
                         recursiveFilesMatchPattern.Add(files[f]);
-                        Console.SetCursorPosition(1, 14 + currentFileNumber);
-                        Console.WriteLine(currentFileNumber + ") - " + files[f]);
+                        Console.SetCursorPosition(2, 14 + currentFileNumber);
+                        Console.Write(currentFileNumber + ") - " + files[f]);
                         currentFileNumber++;
                     }
 
                     fileCount++;
+                    /*Console.SetCursorPosition(22, 9);
+                    Console.Write(fileCount);
+                    Console.SetCursorPosition(26, 10);
+                    Console.Write(currentFileNumber);*/
                     f++;
                 }
                 
