@@ -168,7 +168,9 @@ namespace fileSearcher
         
         public static List<string> getRecursiveFilesMatchPattern(string dir, Regex pattern)
         {
-            List<string> recursiveFiles = new List<string>();
+            List<string> recursiveFilesMatchPattern = new List<string>();
+            int currentFileNumber = 0;
+            int fileCount = 0;
 
             try
             {
@@ -191,11 +193,15 @@ namespace fileSearcher
                     if (enter == "s")
                         are.WaitOne();
 
-                    recursiveFiles.Add(files[f]);
                     if (pattern.IsMatch(files[f]))
                     {
+                        recursiveFilesMatchPattern.Add(files[f]);
+                        //Console.SetCursorPosition(1, 14 + currentFileNumber);
                         Console.WriteLine(files[f]);
+                        currentFileNumber++;
                     }
+
+                    fileCount++;
                     f++;
                 }
                 
@@ -203,7 +209,7 @@ namespace fileSearcher
             }
             catch (System.Exception e) { }
 
-            return recursiveFiles;
+            return recursiveFilesMatchPattern;
         }
 
 
