@@ -17,7 +17,7 @@ namespace fileSearcher
         static AutoResetEvent are = new AutoResetEvent(false);
         static int currentFileNumber = 0;
         static int fileCount = 0;
-        static bool searching = true;
+        static bool searchingPause = false;
         static Stopwatch watch = new Stopwatch();
         static long elapsedSearchTime = 0;
         static bool endSearch = false;
@@ -194,16 +194,16 @@ namespace fileSearcher
                 if (endSearch == true)
                     break;
                 if (enter == 'w')
-                    searching = true;
+                    searchingPause = false;
                 if (enter == 's')
-                    searching = false;
+                    searchingPause = true;
                 if (enter == '0')
                 {
                     endSearch = true;
                     Thread.Sleep(1000);
                     break;
                 }
-                if (searching == true)
+                if (searchingPause == false)
                     are.Set();
             }
 
@@ -246,7 +246,7 @@ namespace fileSearcher
         {
             currentFileNumber = 0;
             fileCount = 0;
-            searching = true;
+            searchingPause = false;
             elapsedSearchTime = 0;
             requiredFiles.Clear();
             watch.Reset();
@@ -278,7 +278,7 @@ namespace fileSearcher
                 int d = 0;
                 while(d < dirs.Length)
                 {
-                    if (searching == false)
+                    if (searchingPause == true)
                         are.WaitOne();
 
                     recursiveFilesMatchPattern.AddRange(getRecursiveFilesMatchPattern(dirs[d], pattern));
@@ -290,7 +290,7 @@ namespace fileSearcher
                 int f = 0;
                 while (f < files.Length)
                 {
-                    if (searching == false)
+                    if (searchingPause == true)
                         are.WaitOne();
 
                     if (pattern.IsMatch(files[f]))
