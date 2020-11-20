@@ -12,6 +12,8 @@ namespace fileSearcher
     class Program
     {
         public const string searchConfigPath = "./searchConfig.txt";
+
+
         static AutoResetEvent are = new AutoResetEvent(false);
         static int currentFileNumber = 0;
         static int fileCount = 0;
@@ -27,21 +29,19 @@ namespace fileSearcher
 
         static void Main(string[] args)
         {
-            checkConfigFileExists();
+            //Проверка существования конфигурационного файла и его создание в случае отсуствия
+            if (!File.Exists(searchConfigPath))
+                makeConfigFile();
+
             startMenu();
 
             Console.ReadKey();
-
         }
 
-
-        static void checkConfigFileExists()
+        static void makeConfigFile()
         {
-            if (!File.Exists(searchConfigPath))
-            {
                 StreamWriter writer = new StreamWriter(searchConfigPath, true, Encoding.UTF8);
                 writer.Close();
-            }
         }
 
 
