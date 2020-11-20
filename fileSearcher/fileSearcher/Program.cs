@@ -204,7 +204,7 @@ namespace fileSearcher
                 if (enter == 'w')   //Продолжить поиск
                 {
                     searchingPause = false;
-                    are.Set();
+                    are.Set();      //Посылание сигнала процессу поиска
                 }
                 if (enter == 's')   //Приостановить поиск
                 {
@@ -278,27 +278,31 @@ namespace fileSearcher
             requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
             Console.WriteLine(" ");
             Console.WriteLine("  Поиск завершен - нажмите любую клавишу перед вводом значений");
-            endSearch = true;
             Console.SetCursorPosition(60, 6);
+            endSearch = true;
         }
 
         public static List<string> getRecursiveFilesMatchPattern(string dir, Regex pattern)
         {
-            watch.Start();
+            watch.Start(); //Старт таймера
             
             List<string> recursiveFilesMatchPattern = new List<string>();
 
+            //Возврат пустых значений в случае принудительного завершения поиска
             if (endSearch == true)
             {
                 return recursiveFilesMatchPattern;
             }
 
+
             try
             {
+                //Рекурсивный проход по директориям
                 string[] dirs = Directory.GetDirectories(dir);
                 int d = 0;
                 while(d < dirs.Length)
                 {
+                    //Установка потока в режим ожидания сигнала в случае паузы
                     if (searchingPause == true)
                         are.WaitOne();
 
@@ -306,14 +310,16 @@ namespace fileSearcher
                     d++;
                 }
                 
-
+                //Проход по файлам внутри директории
                 string[] files = Directory.GetFiles(dir);
                 int f = 0;
                 while (f < files.Length)
                 {
+                    //Установка потока в режим ожидания сигнала в случае паузы
                     if (searchingPause == true)
                         are.WaitOne();
 
+                    //Проверка файла на соответсвие паттерну
                     if (pattern.IsMatch(files[f]))
                     {
                         recursiveFilesMatchPattern.Add(files[f]);
@@ -324,6 +330,7 @@ namespace fileSearcher
                     }
 
 
+                    //Вывод общего количества проверенных файлов и количества соответсвующих паттерну файлов
                     fileCount++;
                     Console.SetCursorPosition(22, 9);
                     Console.Write(fileCount);
@@ -332,10 +339,12 @@ namespace fileSearcher
                     Console.Write(currentFileNumber);
                     Console.SetCursorPosition(60, 6);
                     f++;
-
-                    
                 }
+                
 
+
+                //TODO: вынести в отдельный метод
+                //Очищение строк вывода диеректории, в которой производится поиск
                 Console.SetCursorPosition(22, 12);
                 for (int i = 22; i < Console.BufferWidth; i++)
                 {
@@ -346,12 +355,15 @@ namespace fileSearcher
                 {
                     Console.Write(" ");
                 }
+                //Вывод директории, в которой производится поиск
                 Console.SetCursorPosition(22, 12);
                 Console.Write(dir);
-                Thread.Sleep(30);
                 Console.SetCursorPosition(60, 6);
+                Thread.Sleep(30);
 
 
+
+                //Подсчет и вывод времени с начала выполнения поиска 
                 watch.Stop();
                 elapsedSearchTime = watch.ElapsedMilliseconds;
                 Console.SetCursorPosition(34,11);
@@ -436,6 +448,7 @@ namespace fileSearcher
             File.Move(tempfile, searchConfigPath);
         }
 
+        //Метод красивого отображения текста с заданием центровки
         static void printText(string str, string side = "left")
         {
             int ost = Console.BufferWidth - str.Length;  //остаток символов строки с сообщением
