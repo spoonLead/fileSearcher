@@ -171,20 +171,13 @@ namespace fileSearcher
             Console.Write("Кол-во секунд с начала поиска: ");
             Console.SetCursorPosition(2, 12);
             Console.Write("Поиск в директории: ");
-
-
-            Console.SetCursorPosition(42, 6);
+            Console.SetCursorPosition(60, 6);
             
-            /*new Thread(() =>
-            {
-                List<string> requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
-                Console.WriteLine(" ");
-                Console.WriteLine("  Поиск завершен");
-                Console.SetCursorPosition(62, 6);
-            }).Start();*/
+
 
             Thread searchingThread = new Thread(searchingThr);
             searchingThread.Start();
+
             if(endSearch == true)
             {
                 are.Set();
@@ -195,7 +188,7 @@ namespace fileSearcher
             while (true)
             {
                 char enter = '1';
-                Console.SetCursorPosition(62, 6);
+                Console.SetCursorPosition(60, 6);
                 if (endSearch == false)
                     enter = Console.ReadKey().KeyChar;
                 if (endSearch == true)
@@ -218,7 +211,7 @@ namespace fileSearcher
             {
                 try
                 {
-                    Console.SetCursorPosition(62, 6);
+                    Console.SetCursorPosition(60, 6);
                     int fileNumber = Convert.ToInt32(Console.ReadLine());
                     if (fileNumber != 0)
                     {
@@ -228,9 +221,9 @@ namespace fileSearcher
                         }
                         catch(System.ArgumentOutOfRangeException)
                         {
-                            Console.SetCursorPosition(62, 6);
+                            Console.SetCursorPosition(60, 6);
                             Console.Write("                                                            ");
-                            Console.SetCursorPosition(62, 6);
+                            Console.SetCursorPosition(60, 6);
                         }
                     }
                     else
@@ -238,9 +231,9 @@ namespace fileSearcher
                 }
                 catch (System.FormatException)
                 {
-                    Console.SetCursorPosition(62, 6);
+                    Console.SetCursorPosition(60, 6);
                     Console.Write("                                                            ");
-                    Console.SetCursorPosition(62, 6);
+                    Console.SetCursorPosition(60, 6);
                 }
 
             }
@@ -265,7 +258,7 @@ namespace fileSearcher
             Console.WriteLine("  Поиск завершен - нажмите любую клавишу перед вводом значений");
             endSearch = true;
 
-            Console.SetCursorPosition(62, 6);
+            Console.SetCursorPosition(60, 6);
         }
 
         public static List<string> getRecursiveFilesMatchPattern(string dir, Regex pattern)
@@ -313,10 +306,10 @@ namespace fileSearcher
                     fileCount++;
                     Console.SetCursorPosition(22, 9);
                     Console.Write(fileCount);
-                    Console.SetCursorPosition(62, 6);
+                    Console.SetCursorPosition(60, 6);
                     Console.SetCursorPosition(26, 10);
                     Console.Write(currentFileNumber);
-                    Console.SetCursorPosition(62, 6);
+                    Console.SetCursorPosition(60, 6);
                     f++;
 
                     
@@ -335,14 +328,14 @@ namespace fileSearcher
                 Console.SetCursorPosition(22, 12);
                 Console.Write(dir);
                 Thread.Sleep(30);
-                Console.SetCursorPosition(62, 6);
+                Console.SetCursorPosition(60, 6);
 
 
                 watch.Stop();
                 elapsedSearchTime = watch.ElapsedMilliseconds;
                 Console.SetCursorPosition(34,11);
                 Console.Write(elapsedSearchTime/1000);
-                Console.SetCursorPosition(62, 6);
+                Console.SetCursorPosition(60, 6);
 
             }
             catch (System.Exception e) { }
