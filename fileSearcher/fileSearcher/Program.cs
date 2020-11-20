@@ -158,7 +158,7 @@ namespace fileSearcher
             printText(" ");
             printSearchParam();
             printText(" ");
-            printText("Введите номер файла после завершения, чтобы его открыть или");
+            printText("Введите номер файла после завершения, чтобы открыть его в блокноте или");
             printText("s - остановить   w - продолжить поиск   0 - выйти в меню: ");
             printText(" ");
             printText(" ");
@@ -178,71 +178,90 @@ namespace fileSearcher
             Thread searchingThread = new Thread(searchingThr);
             searchingThread.Start();
 
+            //TODO: Refactor
             if(endSearch == true)
             {
                 are.Set();
                 endSearch = false;
             }
+            //TODO_END
 
 
+            //Обработка пользовательского ввода во врмемя поиска
             while (true)
             {
                 char enter = '1';
                 Console.SetCursorPosition(60, 6);
-                if (endSearch == false)
+
+                //Пользовательский ввод во время поиска
+                if (!endSearch)
                     enter = Console.ReadKey().KeyChar;
-                if (endSearch == true)
+                else
                     break;
-                if (enter == 'w')
+                
+
+                
+                if (enter == 'w')   //Продолжить поиск
+                {
                     searchingPause = false;
-                if (enter == 's')
+                    are.Set();
+                }
+                if (enter == 's')   //Приостановить поиск
+                {
                     searchingPause = true;
-                if (enter == '0')
+                }
+                if (enter == '0')   //Завершить поиск
                 {
                     endSearch = true;
-                    Thread.Sleep(1000);
+                    while (searchingThread.IsAlive) { }   //Ожидание завершения работы поискового потока
                     break;
                 }
-                if (searchingPause == false)
-                    are.Set();
             }
 
+
+
+            //Обработка пользовательского ввода по завершению поиска
             while (true)
             {
                 try
                 {
+                    //Ввод номера файла для открытия
                     Console.SetCursorPosition(60, 6);
                     int fileNumber = Convert.ToInt32(Console.ReadLine());
+                    
+
+                    //Открытие файла из списка по введенному номеру
+                    //и выход из меню поиска при введении 0
                     if (fileNumber != 0)
                     {
                         try
                         {
                             System.Diagnostics.Process.Start("C:\\Windows\\System32\\notepad.exe", requiredFiles[fileNumber - 1]);
                         }
-                        catch(System.ArgumentOutOfRangeException)
+                        catch(System.ArgumentOutOfRangeException)    //Стирание введенного пользователем значения в случае выхода за границы списка
                         {
                             Console.SetCursorPosition(60, 6);
-                            Console.Write("                                                            ");
+                            Console.Write("                                                            ");      //TODO: Стирание всей строки
                             Console.SetCursorPosition(60, 6);
                         }
                     }
                     else
                         break;
                 }
-                catch (System.FormatException)
+                catch (System.FormatException)              //Стирание введенного пользователем значения в случае введения нечислового значения
                 {
                     Console.SetCursorPosition(60, 6);
-                    Console.Write("                                                            ");
+                    Console.Write("                                                            ");      //TODO: Стирание всей строки
                     Console.SetCursorPosition(60, 6);
                 }
-
             }
 
-            exitFromSearching();
+
+            resetSearchParam();
             Console.Clear();
         }
 
-        public static void exitFromSearching()
+        public static void resetSearchParam()
         {
             currentFileNumber = 0;
             fileCount = 0;
@@ -251,13 +270,15 @@ namespace fileSearcher
             requiredFiles.Clear();
             watch.Reset();
         }
+
+
+
         public static void searchingThr()
         {
             requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
             Console.WriteLine(" ");
             Console.WriteLine("  Поиск завершен - нажмите любую клавишу перед вводом значений");
             endSearch = true;
-
             Console.SetCursorPosition(60, 6);
         }
 
@@ -350,6 +371,7 @@ namespace fileSearcher
             bool exit = false;
             while (exit == false)
             {
+                //Отрисовка интерфейса и считывание пользовательского ввода
                 printText("FileSearcher", "center");
                 printText(" ");
                 printSearchParam();
@@ -366,14 +388,14 @@ namespace fileSearcher
                 Console.SetCursorPosition(2, Console.CursorTop);
 
 
+                
                 try
                 {
                     int enter = Convert.ToInt32(Console.ReadLine());
 
                     switch (enter)
                     {
-                        case 1:
-                            Console.Clear();
+                        case 1:         //При выборе сохранить внесенные изменения
                             saveToConfigNewParam(newStartDirectory, newSearchingFileName);
                             Console.Clear();
                             printText("Изменения сохранены!", "center");
@@ -382,7 +404,7 @@ namespace fileSearcher
                             Console.Clear();
                             exit = true;
                             break;
-                        case 2:
+                        case 2:         //При выборе выйти без изменений
                             Console.Clear();
                             exit = true;
                             break;
@@ -400,6 +422,7 @@ namespace fileSearcher
             
         }
 
+        //Сохранение в файл конфига заданных параметров
         static void saveToConfigNewParam(string newStartDir, string newSearchFileName)
        {
             string tempfile = Path.GetTempFileName();

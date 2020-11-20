@@ -22,7 +22,8 @@ namespace ThreadingText
                     are.Set();
             }*/
 
-            System.Diagnostics.Process.Start("C:\\Windows\\System32\\notepad.exe", "C:/Users/PUSH_ka/Desktop/fileSearcher/fileSearcher/fileSearcher/bin/Debug/netcoreapp3.1/searchConfig.txt");
+            System.Diagnostics.Process.Start("C:\\Users\\PUSH_ka\\Desktop\\fileSearcher\\fileSearcher\\fileSearcher\\bin\\Debug\\netcoreapp3.1\\searchConfig.txt");
+            //System.Diagnostics.Process.Start("C:\\Windows\\System32\\notepad.exe", "C:/Users/PUSH_ka/Desktop/fileSearcher/fileSearcher/fileSearcher/bin/Debug/netcoreapp3.1/searchConfig.txt");
             while (true)
             {
                 enter = Convert.ToInt32(Console.ReadLine());
