@@ -12,16 +12,24 @@ namespace ThreadingText
 
         static void Main(string[] args)
         {
-            Thread printingNums = new Thread(printNums);
+            /*Thread printingNums = new Thread(printNums);
             printingNums.Start();
-            printingNums.Abort();
-            Console.WriteLine(System.DateTime.Now.ToUniversalTime());
+           
+            while (true)
+            {
+                enter = Convert.ToInt32(Console.ReadLine());
+                if (enter == 2)
+                    are.Set();
+            }*/
+
+            System.Diagnostics.Process.Start("C:\\Windows\\System32\\notepad.exe", "C:/Users/PUSH_ka/Desktop/fileSearcher/fileSearcher/fileSearcher/bin/Debug/netcoreapp3.1/searchConfig.txt");
             while (true)
             {
                 enter = Convert.ToInt32(Console.ReadLine());
                 if (enter == 2)
                     are.Set();
             }
+            
         }
 
         static void printNums()
@@ -40,7 +48,7 @@ namespace ThreadingText
                     Console.WriteLine(i);
                     Console.SetCursorPosition(cl, ct);
 
-                    System.Threading.Thread.Sleep(1000);
+                    System.Threading.Thread.Sleep(100);
                     i++;
                 //}
             }

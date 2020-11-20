@@ -19,6 +19,7 @@ namespace fileSearcher
         static Stopwatch watch = new Stopwatch();
         static long elapsedSearchTime = 0;
         static bool endSearch = false;
+        static List<string> requiredFiles = new List<string>();
 
         static string startDir;
         static string searchFileName;
@@ -157,7 +158,7 @@ namespace fileSearcher
             printText(" ");
             printSearchParam();
             printText(" ");
-            printText("Введите номер файла, чтобы его открыть или");
+            printText("Введите номер файла после завершения, чтобы его открыть или");
             printText("s - остановить   w - продолжить поиск   0 - выйти в меню: ");
             printText(" ");
             printText(" ");
@@ -188,8 +189,12 @@ namespace fileSearcher
             
             while (true)
             {
+                char enter = '1';
                 Console.SetCursorPosition(62, 6);
-                char enter = Console.ReadKey().KeyChar;
+                if (endSearch == false)
+                    enter = Console.ReadKey().KeyChar;
+                if (endSearch == true)
+                    break;
                 if (enter == 'w')
                     searching = true;
                 if (enter == 's')
@@ -204,14 +209,43 @@ namespace fileSearcher
                     are.Set();
             }
 
+            while (true)
+            {
+                try
+                {
+                    Console.SetCursorPosition(62, 6);
+                    int fileNumber = Convert.ToInt32(Console.ReadLine());
+                    if (fileNumber != 0)
+                    {
+                        try
+                        {
+                            System.Diagnostics.Process.Start("C:\\Windows\\System32\\notepad.exe", requiredFiles[fileNumber - 1]);
+                        }
+                        catch(System.ArgumentOutOfRangeException)
+                        {
+                            printIncorrectInputMessage();
+                        }
+                    }
+                    else
+                        break;
+                }
+                catch (System.FormatException)
+                {
+                    printIncorrectInputMessage();
+                }
+
+            }
+
+
             Console.Clear();
         }
 
         public static void searchingThr()
         {
-            List<string> requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
+            requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
             Console.WriteLine(" ");
-            Console.WriteLine("  Поиск завершен");
+            Console.WriteLine("  Поиск завершен - нажмите любую клавишу для продолжения");
+            endSearch = true;
             Console.SetCursorPosition(62, 6);
         }
 
@@ -234,7 +268,7 @@ namespace fileSearcher
                     if (searching == false)
                         are.WaitOne();
 
-                    getRecursiveFilesMatchPattern(dirs[d], pattern);
+                    recursiveFilesMatchPattern.AddRange(getRecursiveFilesMatchPattern(dirs[d], pattern));
                     d++;
                 }
                 
@@ -252,6 +286,7 @@ namespace fileSearcher
                         currentFileNumber++;
                         Console.SetCursorPosition(2, 14 + currentFileNumber);
                         Console.Write(currentFileNumber + ") - " + files[f]);
+                        Console.SetCursorPosition(62, 6);
                     }
 
 
