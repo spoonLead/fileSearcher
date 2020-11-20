@@ -13,8 +13,8 @@ namespace fileSearcher
     {
         public const string searchConfigPath = "./searchConfig.txt";
 
-
         static AutoResetEvent are = new AutoResetEvent(false);
+        
         static int currentFileNumber = 0;
         static int fileCount = 0;
         static bool searchingPause = false;
