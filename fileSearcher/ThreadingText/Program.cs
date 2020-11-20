@@ -15,7 +15,7 @@ namespace ThreadingText
             Thread printingNums = new Thread(printNums);
             printingNums.Start();
 
-
+            Console.WriteLine(System.DateTime.Now.ToUniversalTime());
             while (true)
             {
                 enter = Convert.ToInt32(Console.ReadLine());

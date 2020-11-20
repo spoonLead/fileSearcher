@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using System.Diagnostics;
 
 namespace fileSearcher
 {
@@ -15,6 +16,8 @@ namespace fileSearcher
         static int currentFileNumber = 0;
         static int fileCount = 0;
         static bool searching = true;
+        static Stopwatch watch = new Stopwatch();
+        static long elapsedSearchTime = 0;
 
         static void Main(string[] args)
         {
@@ -129,6 +132,7 @@ namespace fileSearcher
 
         
 
+
         static void search()
         {
             //Открытие файла конфигурации поиска
@@ -158,10 +162,13 @@ namespace fileSearcher
             Console.SetCursorPosition(2, 10);
             Console.Write("Кол-во совпавших файлов: ");
             Console.SetCursorPosition(2, 11);
+            Console.Write("Кол-во секунд с начала поиска: ");
+            Console.SetCursorPosition(2, 12);
             Console.Write("Поиск в директории: ");
 
 
             Console.SetCursorPosition(42, 6);
+            
             new Thread(() =>
             {
                 List<string> requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
@@ -188,6 +195,8 @@ namespace fileSearcher
         
         public static List<string> getRecursiveFilesMatchPattern(string dir, Regex pattern)
         {
+            watch.Start();
+
             List<string> recursiveFilesMatchPattern = new List<string>();
             
             try
@@ -219,6 +228,7 @@ namespace fileSearcher
                         Console.Write(currentFileNumber + ") - " + files[f]);
                     }
 
+
                     fileCount++;
                     Console.SetCursorPosition(22, 9);
                     Console.Write(fileCount);
@@ -227,21 +237,30 @@ namespace fileSearcher
                     Console.Write(currentFileNumber);
                     Console.SetCursorPosition(62, 6);
                     f++;
+
+                    
                 }
 
-                Console.SetCursorPosition(22, 11);
+                Console.SetCursorPosition(22, 12);
                 for (int i = 22; i < Console.BufferWidth; i++)
                 {
                     Console.Write(" ");
                 }
-                Console.SetCursorPosition(0, 12);
+                Console.SetCursorPosition(0, 13);
                 for (int i = 0; i < Console.BufferWidth; i++)
                 {
                     Console.Write(" ");
                 }
-                Console.SetCursorPosition(22, 11);
+                Console.SetCursorPosition(22, 12);
                 Console.Write(dir);
                 Thread.Sleep(30);
+                Console.SetCursorPosition(62, 6);
+
+
+                watch.Stop();
+                elapsedSearchTime = watch.ElapsedMilliseconds;
+                Console.SetCursorPosition(34,11);
+                Console.Write(elapsedSearchTime/1000);
                 Console.SetCursorPosition(62, 6);
 
             }
