@@ -14,7 +14,7 @@ namespace ThreadingText
         {
             Thread printingNums = new Thread(printNums);
             printingNums.Start();
-
+            printingNums.Abort();
             Console.WriteLine(System.DateTime.Now.ToUniversalTime());
             while (true)
             {

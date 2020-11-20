@@ -18,6 +18,11 @@ namespace fileSearcher
         static bool searching = true;
         static Stopwatch watch = new Stopwatch();
         static long elapsedSearchTime = 0;
+        static bool endSearch = false;
+
+        static string startDir;
+        static string searchFileName;
+        static Regex searchFileNamePattern;
 
         static void Main(string[] args)
         {
@@ -140,9 +145,9 @@ namespace fileSearcher
             StreamReader reader = new StreamReader(input);
             
             //Получение из файла параметров поиска
-            string startDir = reader.ReadLine();
-            string searchFileName = reader.ReadLine();
-            Regex searchFileNamePattern = new Regex(@"(\w*)" + searchFileName + @"(\w*)");
+            startDir = reader.ReadLine();
+            searchFileName = reader.ReadLine();
+            searchFileNamePattern = new Regex(@"(\w*)" + searchFileName + @"(\w*)");
 
             //Закрытие файла конфигурации
             reader.Close();
@@ -169,14 +174,16 @@ namespace fileSearcher
 
             Console.SetCursorPosition(42, 6);
             
-            new Thread(() =>
+            /*new Thread(() =>
             {
                 List<string> requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
                 Console.WriteLine(" ");
                 Console.WriteLine("  Поиск завершен");
                 Console.SetCursorPosition(62, 6);
-            }).Start();
+            }).Start();*/
 
+            Thread searchingThread = new Thread(searchingThr);
+            searchingThread.Start();
 
             
             while (true)
@@ -187,16 +194,35 @@ namespace fileSearcher
                     searching = true;
                 if (enter == 's')
                     searching = false;
+                if (enter == '0')
+                {
+                    endSearch = true;
+                    Thread.Sleep(1000);
+                    break;
+                }
                 if (searching == true)
                     are.Set();
             }
 
+            Console.Clear();
         }
-        
+
+        public static void searchingThr()
+        {
+            List<string> requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
+            Console.WriteLine(" ");
+            Console.WriteLine("  Поиск завершен");
+            Console.SetCursorPosition(62, 6);
+        }
+
         public static List<string> getRecursiveFilesMatchPattern(string dir, Regex pattern)
         {
             watch.Start();
-
+            if (endSearch == true)
+            {
+                are.Close();
+                are.WaitOne();
+            }
             List<string> recursiveFilesMatchPattern = new List<string>();
             
             try
