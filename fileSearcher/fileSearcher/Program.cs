@@ -185,8 +185,13 @@ namespace fileSearcher
 
             Thread searchingThread = new Thread(searchingThr);
             searchingThread.Start();
+            if(endSearch == true)
+            {
+                are.Set();
+                endSearch = false;
+            }
 
-            
+
             while (true)
             {
                 char enter = '1';
@@ -223,7 +228,9 @@ namespace fileSearcher
                         }
                         catch(System.ArgumentOutOfRangeException)
                         {
-                            printIncorrectInputMessage();
+                            Console.SetCursorPosition(62, 6);
+                            Console.Write("                                                            ");
+                            Console.SetCursorPosition(62, 6);
                         }
                     }
                     else
@@ -231,34 +238,47 @@ namespace fileSearcher
                 }
                 catch (System.FormatException)
                 {
-                    printIncorrectInputMessage();
+                    Console.SetCursorPosition(62, 6);
+                    Console.Write("                                                            ");
+                    Console.SetCursorPosition(62, 6);
                 }
 
             }
 
-
+            exitFromSearching();
             Console.Clear();
         }
 
+        public static void exitFromSearching()
+        {
+            currentFileNumber = 0;
+            fileCount = 0;
+            searching = true;
+            elapsedSearchTime = 0;
+            requiredFiles.Clear();
+            watch.Reset();
+        }
         public static void searchingThr()
         {
             requiredFiles = getRecursiveFilesMatchPattern(startDir, searchFileNamePattern);
             Console.WriteLine(" ");
-            Console.WriteLine("  Поиск завершен - нажмите любую клавишу для продолжения");
+            Console.WriteLine("  Поиск завершен - нажмите любую клавишу перед вводом значений");
             endSearch = true;
+
             Console.SetCursorPosition(62, 6);
         }
 
         public static List<string> getRecursiveFilesMatchPattern(string dir, Regex pattern)
         {
             watch.Start();
+            
+            List<string> recursiveFilesMatchPattern = new List<string>();
+
             if (endSearch == true)
             {
-                are.Close();
-                are.WaitOne();
+                return recursiveFilesMatchPattern;
             }
-            List<string> recursiveFilesMatchPattern = new List<string>();
-            
+
             try
             {
                 string[] dirs = Directory.GetDirectories(dir);
