@@ -63,6 +63,7 @@ namespace fileSearcher
                 Console.SetCursorPosition(21, Console.CursorTop -1);
                 
 
+
                 //Вызов функций, соответствующих выбору пользователя
                 try
                 {
@@ -83,14 +84,13 @@ namespace fileSearcher
                             System.Environment.Exit(0);
                             break;
                         default:
-                            printIncorrectInputMessage();
+                            printIncorrectInputMessageForSec();
                             break;
                     }
                 }
                 catch (System.FormatException)
                 {
-                    printIncorrectInputMessage();
-                    Console.Clear();
+                    printIncorrectInputMessageForSec();
                 }
             }
             
@@ -116,17 +116,17 @@ namespace fileSearcher
         }
 
         //Вывод на экран надписи о неверном вводе данных и таймер обатного отсчета на 5 секунд
-        static void printIncorrectInputMessage()
+        static void printIncorrectInputMessageForSec(int sec = 5)
         {
             Console.Clear();
             printText("Неправильно введено значение!", "center");
             printText("Вы будете направлены назад", "center");
-            timerForSec(5);
+            freezeTimerForSec(sec);
             Console.Clear();
         }
 
         //Таймер с обратным отсчетом, замораживающий процесс на заданное кол-во секунд
-        static void timerForSec(int sec)
+        static void freezeTimerForSec(int sec)
         {
             for (int i = sec; i >= 1; i--)
             {
@@ -385,7 +385,7 @@ namespace fileSearcher
                             Console.Clear();
                             printText("Изменения сохранены!", "center");
                             printText("Вы будете возвращены в главное меню через:", "center");
-                            timerForSec(5);
+                            freezeTimerForSec(5);
                             Console.Clear();
                             exit = true;
                             break;
@@ -394,14 +394,14 @@ namespace fileSearcher
                             exit = true;
                             break;
                         default:
-                            printIncorrectInputMessage();
+                            printIncorrectInputMessageForSec();
                             break;
                     }
 
                 }
                 catch (System.FormatException)
                 {
-                    printIncorrectInputMessage();
+                    printIncorrectInputMessageForSec();
                 }
             }
             
